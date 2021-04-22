@@ -1,0 +1,24 @@
+<% if (notice) { %>
+    <p><%= notice %></p>
+<% } %>
+
+<p>
+Authors!
+</p>
+
+<table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% authorsList.forEach( (author) => { %>
+        <tr>
+          <td><%= author.firstName %></td>
+          <td><%= author.lastName %></td>
+        </tr>
+      <% }) %>
+    </tbody>
+</table>
