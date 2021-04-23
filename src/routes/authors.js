@@ -17,9 +17,28 @@ router.get('authors.list', '/', async (ctx) => {
   });
 });
 
+router.get('authors.new', '/new', async (ctx) => {
+  await ctx.render('authors/new', {
+    submitAuthorPath: ctx.router.url('authors.create'),
+  });
+});
+
 router.get('authors.show', '/:id', async (ctx) => {
   const { author } = ctx.state;
   await ctx.render('authors/show', { author, notice: ctx.flashMessage.notice });
+});
+
+router.post('authors.create', '/', async (ctx) => {
+  const author = ctx.orm.author.build(ctx.request.body);
+  try {
+    await author.save({ fields: ['lastName', 'firstName', 'birthDate'] });
+    ctx.redirect(ctx.router.url('authors.list'));
+  } catch (validationError) {
+    await ctx.render('authors/new', {
+      errors: validationError.errors,
+      submitAuthorPath: ctx.router.url('authors.create'),
+    });
+  }
 });
 
 module.exports = router;
