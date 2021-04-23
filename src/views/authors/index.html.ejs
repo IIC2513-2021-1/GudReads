@@ -16,7 +16,7 @@ Authors!
     <tbody>
       <% authorsList.forEach( (author) => { %>
         <tr>
-          <td><%= author.firstName %></td>
+          <td><a href=<%= authorPath(author) %>><%= author.firstName %></a></td>
           <td><%= author.lastName %></td>
         </tr>
       <% }) %>
