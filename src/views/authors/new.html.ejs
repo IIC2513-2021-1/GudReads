@@ -1,0 +1,27 @@
+
+<!-- <%- //include('_form') %> -->
+
+<div>
+    <% if (locals.error) { %>
+        <div class="errors">
+          You need to fix the following error: <%= error %>
+        </div>
+      <% } %>
+    <form action="<%= submitAuthorPath %>" method="post">
+      <div>
+        <label for="firstName">Nombre</label>
+        <input type="text" name="firstName" value="Benjamín" />
+      </div>
+      <div>
+        <label for="lastName">Apellido</label>
+        <input type="text" name="lastName" />
+      </div>
+      <div>
+        <label for="birthDate">Fecha de nacimiento</label>
+        <input type="date" name="birthDate" />
+      </div>
+      <div>
+        <input type="submit" name="create" value="Crear" />
+      </div>
+    </form>
+</div>
