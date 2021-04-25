@@ -13,6 +13,7 @@ router.get('authors.list', '/', async (ctx) => {
   await ctx.render('authors/index', {
     authorsList,
     authorPath: (author) => ctx.router.url('authors.show', { id: author.id }),
+    newAuthorPath: ctx.router.url('authors.new'),
     notice: ctx.flashMessage.notice,
   });
 });
