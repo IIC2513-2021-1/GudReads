@@ -1,15 +1,10 @@
 
-<!-- <%- include('_form') %> -->
+<!-- <%- //include('_form') %> -->
 
 <div>
-    <% if (errors) { %>
+    <% if (locals.error) { %>
         <div class="errors">
-          You need to fix the following errors:
-          <ul>
-            <% errors.forEach(error => { %>
-              <li><%= error.message %></li>
-            <% }); %>
-          </ul>
+          You need to fix the following error: <%= error %>
         </div>
       <% } %>
     <form action="<%= submitAuthorPath %>" method="post">

@@ -33,9 +33,9 @@ router.post('authors.create', '/', async (ctx) => {
   try {
     await author.save({ fields: ['lastName', 'firstName', 'birthDate'] });
     ctx.redirect(ctx.router.url('authors.list'));
-  } catch (validationError) {
+  } catch (e) {
     await ctx.render('authors/new', {
-      errors: validationError.errors,
+      error: e,
       submitAuthorPath: ctx.router.url('authors.create'),
     });
   }
