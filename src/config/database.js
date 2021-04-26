@@ -2,15 +2,15 @@ require('dotenv').config();
 
 const config = {
   default: {
-    username: 'postgres',
-    password: 'postgres',
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
     dialect: process.env.DB_DIALECT || 'postgres',
-    database: 'web-template-test',
+    database: process.env.DB_NAME,
     host: process.env.DB_HOST || '127.0.0.1',
   },
   development: {
     extend: 'default',
-    database: process.env.DB_NAME || 'web-template-test',
+    database: process.env.DB_NAME || 'iic2513template_dev',
   },
   test: {
     extend: 'default',
