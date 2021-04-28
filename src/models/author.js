@@ -14,15 +14,25 @@ module.exports = (sequelize, DataTypes) => {
   }
   author.init(
     {
-      firstName: DataTypes.STRING,
+      firstName: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+        },
+      },
       lastName: {
         type: DataTypes.STRING,
         allowNull: false,
-        // validate: {
-        //   ...
-        // }
-      }, 
-      birthDate: DataTypes.DATEONLY,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      birthDate: {
+        type: DataTypes.DATEONLY,
+        validate: {
+          isDate: true,
+        },
+      },
     },
     {
       sequelize,
