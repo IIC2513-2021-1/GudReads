@@ -2,23 +2,26 @@
 <!-- <%- //include('_form') %> -->
 
 <div>
-    <% if (locals.error) { %>
-        <div class="errors">
-          You need to fix the following error: <%= error %>
-        </div>
-      <% } %>
+    <% if (locals.errors) { %>
+      Tienes que arreglar los siguientes errores:
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.message %></li>
+        <% }) %>
+      </ul>
+    <% } %>
     <form action="<%= submitAuthorPath %>" method="post">
       <div>
         <label for="firstName">Nombre</label>
-        <input type="text" name="firstName" value="Benjamín" />
+        <input type="text" name="firstName" value="<%= author.firstName %>" />
       </div>
       <div>
         <label for="lastName">Apellido</label>
-        <input type="text" name="lastName" />
+        <input type="text" name="lastName" value="<%= author.lastName %>" />
       </div>
       <div>
         <label for="birthDate">Fecha de nacimiento</label>
-        <input type="date" name="birthDate" />
+        <input type="date" name="birthDate" value="<%= author.birthDate %>" />
       </div>
       <div>
         <input type="submit" name="create" value="Crear" />
