@@ -19,7 +19,9 @@ router.get('authors.list', '/', async (ctx) => {
 });
 
 router.get('authors.new', '/new', async (ctx) => {
+  const author = ctx.orm.author.build();
   await ctx.render('authors/new', {
+    author,
     submitAuthorPath: ctx.router.url('authors.create'),
   });
 });
@@ -34,9 +36,10 @@ router.post('authors.create', '/', async (ctx) => {
   try {
     await author.save({ fields: ['lastName', 'firstName', 'birthDate'] });
     ctx.redirect(ctx.router.url('authors.list'));
-  } catch (e) {
+  } catch (ValidationError) {
     await ctx.render('authors/new', {
-      error: e,
+      author,
+      errors: ValidationError.errors,
       submitAuthorPath: ctx.router.url('authors.create'),
     });
   }
