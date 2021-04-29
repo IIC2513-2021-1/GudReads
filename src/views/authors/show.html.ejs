@@ -3,5 +3,10 @@
 <% } else {%>
     <h2><%= author.firstName %> <%= author.lastName %></h2>
     <p><%= author.lastName %> Nació en  <%= author.birthDate %>, ... </p>
-
+    <h3>Libros:</h3>
+    <ul>
+        <% author.books.forEach(book => { %>
+            <li><%= book.title %></li>
+        <% }) %>
+    </ul>
 <% } %>
