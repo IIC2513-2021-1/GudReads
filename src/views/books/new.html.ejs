@@ -1,0 +1,33 @@
+<div>
+    <% if (locals.errors) { %>
+      Tienes que arreglar los siguientes errores:
+      <ul>
+        <% errors.forEach(error => { %>
+          <li><%= error.message %></li>
+        <% }) %>
+      </ul>
+    <% } %>
+    <form action="<%= submitBookPath %>" method="POST">
+        <div>
+            <label for="title">Título</label>
+            <input type="text" name="title" value="<%= book.title %>">
+        </div>
+        <div>
+            <label for="publication">Publicación</label>
+            <input type="number" name="publication" value="<%= book.publication %>">
+        </div>
+        <div>
+            <label for="authorId">Autor</label>
+            <select name="authorId" id="authorId">
+                <% authorList.forEach((author) => { %>
+                    <option value="<%= author.id %>">
+                        <%= `${author.firstName} ${author.lastName}` %>
+                    </option>
+                <% }) %>
+            </select>
+        </div>
+        <div>
+            <input type="submit" value="Crear">
+        </div>
+    </form>
+</div>

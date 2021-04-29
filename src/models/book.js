@@ -15,8 +15,18 @@ module.exports = (sequelize, DataTypes) => {
   }
   book.init(
     {
-      title: DataTypes.STRING,
-      publication: DataTypes.INTEGER,
+      title: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      publication: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true,
+        },
+      },
       authorId: DataTypes.INTEGER,
     },
     {
