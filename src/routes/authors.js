@@ -34,6 +34,9 @@ router.get('authors.show', '/:id', async (ctx) => {
   // const books = await author.getBooks();
   await ctx.render('authors/show', {
     author,
+    newBookPath: ctx.router.url('books_for_authors.new', {
+      authorId: author.id,
+    }),
     notice: ctx.flashMessage.notice,
   });
 });
