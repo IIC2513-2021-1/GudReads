@@ -9,7 +9,7 @@ const session = require('./routes/session');
 
 const router = new KoaRouter();
 
-router.use(async(ctx,next)=>{
+router.use(async (ctx, next) => {
     if (ctx.session.currentUserId){
       ctx.state.currentUser = await ctx.orm.user.findByPk(ctx.session.currentUserId);
     }
