@@ -1,7 +1,7 @@
 'use strict';
 const faker = require('faker');
 
-const users = [...Array(100)].map((user) => (
+const users = [...Array(10)].map((user) => (
   {
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
@@ -11,6 +11,17 @@ const users = [...Array(100)].map((user) => (
     updatedAt: new Date()
   }
 ))
+
+users.push({
+  firstName: 'Jalen',
+  lastName: '87',
+  email: 'Jalen83@gmail.com',
+  password: 'KMsnQpv4',
+  createdAt: new Date(),
+  updatedAt: new Date()  
+})
+
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('users', users, {});
