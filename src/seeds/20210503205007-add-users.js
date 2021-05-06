@@ -21,7 +21,6 @@ users.push({
   updatedAt: new Date()  
 })
 
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('users', users, {});
