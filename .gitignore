@@ -106,3 +106,6 @@ dist
 # Zone Identifiers
 *.Identifier
 **/.Identifier
+
+#envrc
+.envrc
