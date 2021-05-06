@@ -16,7 +16,7 @@ router.use(async(ctx,next)=>{
     return next();
   });
   
-  router.use(async (ctx, next) => {
+router.use(async (ctx, next) => {
     Object.assign(ctx.state, {
       paths: {
         destroySession: ctx.router.url('session.destroy'),
