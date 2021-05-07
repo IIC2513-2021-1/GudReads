@@ -10,23 +10,36 @@ const session = require('./routes/session');
 const router = new KoaRouter();
 
 router.use(async (ctx, next) => {
-    if (ctx.session.currentUserId){
-      ctx.state.currentUser = await ctx.orm.user.findByPk(ctx.session.currentUserId);
+  try {
+    await next();
+  } catch (err) {
+    switch (err.status) {
+      case 401:
+        ctx.app.emit('error', err, ctx);
+        ctx.redirect(ctx.router.url('session.new'));
+        break;
+      default:
+        throw err;
     }
-    return next();
-  });
-  
+  }
+});
+
 router.use(async (ctx, next) => {
-    Object.assign(ctx.state, {
-      paths: {
-        destroySession: ctx.router.url('session.destroy'),
-        newSession: ctx.router.url('session.new'),
-  
-      },
-    });
-    return next();
+  if (ctx.session.currentUserId) {
+    ctx.state.currentUser = await ctx.orm.user.findByPk(ctx.session.currentUserId);
+  }
+  return next();
+});
+
+router.use(async (ctx, next) => {
+  Object.assign(ctx.state, {
+    paths: {
+      destroySession: ctx.router.url('session.destroy'),
+      newSession: ctx.router.url('session.new'),
+    },
   });
-  
+  return next();
+});
 
 router.use('/', index.routes());
 router.use('/hello', hello.routes());
@@ -34,6 +47,5 @@ router.use('/authors', authors.routes());
 router.use('/books', books.routes());
 router.use('/authors/:authorId/books', booksForAuthors.routes());
 router.use('/session', session.routes());
-
 
 module.exports = router;
