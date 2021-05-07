@@ -1,2 +1,42 @@
 @import './layout';
 @import './hello';
+
+
+.books-container {
+  width: 80vw;
+  margin: 10 auto;
+  .book-attributes-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 4px 7px;
+    .book-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      background-color: rgba(51, 83, 189, 0.904);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin: 0;
+    }
+    .book-pages {
+      position: absolute;
+      top: 8px;
+      right: 15px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: white;
+      padding: 3px;
+      border-radius: 5px;
+      margin: 2px 0;
+    }
+    .book-description {
+      font-size: 1.1rem;
+      background-color: rgba(150, 153, 161, 0.644);
+      color: white;
+      padding: 5px 10px 5px 20px;
+      border-radius: 5px;
+      margin: 0;
+    }
+  }
+}
