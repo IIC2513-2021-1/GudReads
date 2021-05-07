@@ -27,6 +27,14 @@
             </select>
         </div>
         <div>
+            <label for="description">Descripción</label>
+            <textarea name="description" value="<%= book.description %>" rows="5" cols="50"></textarea>
+        </div>
+        <div>
+            <label for="pages">Nº de Páginas</label>
+            <input type="number" min="1" name="pages" value="<%= book.pages %>">
+        </div>
+        <div>
             <input type="submit" value="Crear">
         </div>
     </form>
