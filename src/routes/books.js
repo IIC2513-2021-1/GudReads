@@ -1,6 +1,9 @@
 const KoaRouter = require('koa-router');
+const { checkAuth } = require('../middlewares/auth');
 
 const router = new KoaRouter();
+
+router.use(checkAuth);
 
 router.get('books.new', '/new', async (ctx) => {
   const book = ctx.orm.book.build();

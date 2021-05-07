@@ -1,6 +1,9 @@
 const KoaRouter = require('koa-router');
+const { checkAuth } = require('../middlewares/auth');
 
 const router = new KoaRouter();
+
+router.use(checkAuth);
 
 async function getAuthor(ctx, next) {
   ctx.state.author = await ctx.orm.author.findByPk(ctx.params.authorId);
