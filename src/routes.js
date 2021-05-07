@@ -36,7 +36,6 @@ router.use(async (ctx, next) => {
     paths: {
       destroySession: ctx.router.url('session.destroy'),
       newSession: ctx.router.url('session.new'),
-
     },
   });
   return next();
