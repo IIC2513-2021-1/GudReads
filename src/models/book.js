@@ -28,6 +28,18 @@ module.exports = (sequelize, DataTypes) => {
         },
       },
       authorId: DataTypes.INTEGER,
+      description: {
+        type: DataTypes.STRING,
+        validate: {
+          notEmpty: true,
+        },
+      },
+      pages: {
+        type: DataTypes.INTEGER,
+        validate: {
+          notEmpty: true,
+        },
+      },
     },
     {
       sequelize,

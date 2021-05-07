@@ -1,0 +1,12 @@
+<% if (notice) { %>
+  <p><%= notice %></p>
+<% } else {%>
+  <div class="books-container">
+    <div class="book-attributes-container">
+        <p class="book-title"><%= book.title %></p>
+        <p class="book-pages">Número de páginas: <%= book.pages %></p>
+        <p class="book-description"><%= book.description %></p>
+    </div>
+  </div>
+<% } %>
+<a href="<%= backToAuthorPath %>">Volver al Autor</a>

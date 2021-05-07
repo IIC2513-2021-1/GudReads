@@ -1,12 +1,12 @@
 <% if (notice) { %>
     <p><%= notice %></p>
-<% } else {%>
+<% } else { %>
     <h2><%= author.firstName %> <%= author.lastName %></h2>
     <p><%= author.lastName %> Nació en  <%= author.birthDate %>, ... </p>
     <h3>Libros:</h3>
     <ul>
         <% author.books.forEach((book) => { %>
-            <li><%= book.title %></li>
+            <li><a href="<%= bookDetailsPath(book.id) %>"><%= book.title %></a></li>
         <% }) %>
     </ul>
     <a href="<%= newBookPath %>">Agregar libro</a>
