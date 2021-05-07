@@ -9,5 +9,7 @@
             <li><a href="<%= bookDetailsPath(book.id) %>"><%= book.title %></a></li>
         <% }) %>
     </ul>
-    <a href="<%= newBookPath %>">Agregar libro</a>
+    <% if (locals.currentUser) { %>
+        <a href="<%= newBookPath %>">Agregar libro</a>
+    <% } %>
 <% } %>
