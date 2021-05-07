@@ -14,6 +14,20 @@
       <div id="logo">
         <img src="<%= assetPath('logo.png') %>" alt="Logo" />
       </div>
+
+
+      <div class="user-controls">
+        <% if (locals.currentUser) { %>
+          <span>Hola <%= currentUser.email %>!</span>
+
+          <form action="<%= paths.destroySession %>" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="submit" value="Salir" />
+          </form>
+        <% } else { %>
+          <a href="<%= paths.newSession %>">Iniciar sesión</a>
+        <% } %>
+       </div>
     </header>
     <%- body %>
     <script src="<%= assetPath('app.js') %>"></script>
