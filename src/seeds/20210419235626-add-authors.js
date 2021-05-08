@@ -1,5 +1,5 @@
 module.exports = {
-  up: async (queryInterface, Sequelize) => {
+  up: async (queryInterface) => {
     const authorsArray = [];
 
     authorsArray.push({
@@ -21,7 +21,7 @@ module.exports = {
     return queryInterface.bulkInsert('authors', authorsArray);
   },
 
-  down: async (queryInterface, Sequelize) => {
+  down: async () => {
     /**
      * Add commands to revert seed here.
      *

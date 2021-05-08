@@ -21,6 +21,6 @@ users.push({
 });
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('users', users, {}),
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('users', null, {}),
+  up: (queryInterface) => queryInterface.bulkInsert('users', users, {}),
+  down: (queryInterface) => queryInterface.bulkDelete('users', null, {}),
 };
