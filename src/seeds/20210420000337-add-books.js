@@ -1,3 +1,5 @@
+const { QueryTypes } = require('sequelize');
+
 module.exports = {
   up: async (queryInterface) => {
     const booksArray = [];
@@ -9,11 +11,14 @@ module.exports = {
 
     async function findAuthorIdByLastName(lastName) {
       const authors = await queryInterface.sequelize.query(
-        'SELECT "id" FROM "authors" '
-        + `WHERE "authors"."lastName" = '${lastName}'`,
+        'SELECT "id" FROM "authors" WHERE "authors"."lastName" = ?',
+        {
+          replacements: [lastName],
+          type: QueryTypes.SELECT,
+        },
       );
 
-      const [authorId] = authors[0].map(({ id }) => id);
+      const [authorId] = authors.map(({ id }) => id);
       return authorId;
     }
 
