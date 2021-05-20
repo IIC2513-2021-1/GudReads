@@ -1,5 +1,6 @@
 const KoaRouter = require('koa-router');
 
+const { setCurrentUser } = require('./middlewares/auth');
 const hello = require('./routes/hello');
 const index = require('./routes/index');
 const authors = require('./routes/authors');
@@ -24,12 +25,7 @@ router.use(async (ctx, next) => {
   }
 });
 
-router.use(async (ctx, next) => {
-  if (ctx.session.currentUserId) {
-    ctx.state.currentUser = await ctx.orm.user.findByPk(ctx.session.currentUserId);
-  }
-  return next();
-});
+router.use(setCurrentUser);
 
 router.use(async (ctx, next) => {
   Object.assign(ctx.state, {
