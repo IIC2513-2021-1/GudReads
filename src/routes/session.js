@@ -13,7 +13,7 @@ router.post('session.create', '/', async (ctx) => {
   const user = await ctx.orm.user.findOne({ where: { email } });
 
   /* TODO: replace plain-text password comparison with encrypted version */
-  const authenticated = user && password === user.password;
+  const authenticated = user && user.checkPassword(password);
   if (user && authenticated) {
     ctx.session.currentUserId = user.id;
     ctx.redirect('/');
