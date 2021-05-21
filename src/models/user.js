@@ -12,6 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate() {
       // define association here
     }
+
+    getFullName() {
+      return `${this.firstName} ${this.lastName}`;
+    }
   }
   user.init({
     firstName: {
@@ -42,5 +46,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'user',
   });
+
   return user;
 };
