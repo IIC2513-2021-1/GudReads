@@ -1,7 +1,7 @@
 const KoaRouter = require('koa-router');
-var JSONAPISerializer = require('jsonapi-serializer').Serializer;
+const JSONAPISerializer = require('jsonapi-serializer').Serializer;
 
-var AuthorSerializer = new JSONAPISerializer('authors', {
+const AuthorSerializer = new JSONAPISerializer('authors', {
   attributes: ['firstName', 'lastName', 'birthDate'],
   keyForAttribute: 'camelCase',
 });
