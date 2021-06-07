@@ -1,5 +1,30 @@
 const KoaRouter = require('koa-router');
+var JSONAPISerializer = require('jsonapi-serializer').Serializer;
+
+var AuthorSerializer = new JSONAPISerializer('authors', {
+  attributes: ['firstName', 'lastName', 'birthDate'],
+  keyForAttribute: 'camelCase',
+});
 
 const router = new KoaRouter();
+
+router.get('api.authors.show', '/:id', async (ctx) => {
+  const author = await ctx.orm.author.findByPk(ctx.params.id);
+  if (!author) {
+    ctx.throw(404, "The book you are looking for doesen't exists");
+  }
+  ctx.body = AuthorSerializer.serialize(author);
+});
+
+router.post('api.authors.create', '/', async (ctx) => {
+  try {
+    const author = await ctx.orm.author.build(ctx.request.body);
+    await author.save({ fields: ['lastName', 'firstName', 'birthDate'] });
+    ctx.status = 201;
+    ctx.body = AuthorSerializer.serialize(author);
+  } catch (ValidationError) {
+    ctx.throw(400, 'Bad request');
+  }
+});
 
 module.exports = router;
