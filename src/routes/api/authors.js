@@ -9,7 +9,7 @@ const AuthorSerializer = new JSONAPISerializer('authors', {
 const router = new KoaRouter();
 
 router.get('api.authors.show', '/:id', async (ctx) => {
-  const author = ctx.orm.author.findByPk(ctx.params.id);
+  const author = await ctx.orm.author.findByPk(ctx.params.id);
   if (!author) {
     ctx.throw(404, "The book you are looking for doesen't exists");
   }
@@ -18,7 +18,7 @@ router.get('api.authors.show', '/:id', async (ctx) => {
 
 router.post('api.authors.create', '/', async (ctx) => {
   try {
-    const author = await ctx.orm.author.build(ctx.request.body);
+    const author = ctx.orm.author.build(ctx.request.body);
     await author.save({ fields: ['lastName', 'firstName', 'birthDate'] });
     ctx.status = 201;
     ctx.body = AuthorSerializer.serialize(author);
