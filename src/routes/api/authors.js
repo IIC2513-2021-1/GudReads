@@ -19,7 +19,7 @@ router.get('api.authors.show', '/:id', async (ctx) => {
 router.post('api.authors.create', '/', async (ctx) => {
   try {
     const author = ctx.orm.author.build(ctx.request.body);
-    await author.save({ fields: ['lastName', 'firstName', 'birthDate'] });
+    await author.save({ fields: ['firstName', 'lastName', 'birthDate'] });
     ctx.status = 201;
     ctx.body = AuthorSerializer.serialize(author);
   } catch (ValidationError) {
