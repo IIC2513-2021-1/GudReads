@@ -7,7 +7,6 @@ const authors = require('./routes/authors');
 const books = require('./routes/books');
 const booksForAuthors = require('./routes/booksForAuthors');
 const session = require('./routes/session');
-const api = require('./routes/api');
 
 const router = new KoaRouter();
 
@@ -44,6 +43,5 @@ router.use('/authors', authors.routes());
 router.use('/books', books.routes());
 router.use('/authors/:authorId/books', booksForAuthors.routes());
 router.use('/session', session.routes());
-router.use('/api', api.routes());
 
 module.exports = router;

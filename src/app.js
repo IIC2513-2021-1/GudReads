@@ -11,6 +11,7 @@ const assets = require('./assets');
 const mailer = require('./mailers');
 const routes = require('./routes');
 const orm = require('./models');
+const api = require('./routes/api');
 
 // App constructor
 const app = new Koa();
@@ -22,7 +23,7 @@ app.keys = [
   'these secret keys are used to sign HTTP cookies',
   'to make sure only this app can generate a valid one',
   'and thus preventing someone just writing a cookie',
-  'saying he is logged in when it\'s really not',
+  "saying he is logged in when it's really not",
 ];
 
 // expose ORM through context's prototype
@@ -55,21 +56,31 @@ if (developmentMode) {
 app.use(koaStatic(path.join(__dirname, '..', 'build'), {}));
 
 // expose a session hash to store information across requests from same client
-app.use(session({
-  maxAge: 14 * 24 * 60 * 60 * 1000, // 2 weeks
-}, app));
+app.use(
+  session(
+    {
+      maxAge: 14 * 24 * 60 * 60 * 1000, // 2 weeks
+    },
+    app,
+  ),
+);
 
 // flash messages support
 app.use(koaFlashMessage);
 
 // parse request body
-app.use(koaBody({
-  multipart: true,
-  keepExtensions: true,
-}));
+app.use(
+  koaBody({
+    multipart: true,
+    keepExtensions: true,
+  }),
+);
 
 app.use((ctx, next) => {
-  ctx.request.method = override.call(ctx, ctx.request.body.fields || ctx.request.body);
+  ctx.request.method = override.call(
+    ctx,
+    ctx.request.body.fields || ctx.request.body,
+  );
   return next();
 });
 
@@ -85,5 +96,6 @@ mailer(app);
 
 // Routing middleware
 app.use(routes.routes());
+app.use(api.routes());
 
 module.exports = app;
