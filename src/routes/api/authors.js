@@ -11,7 +11,7 @@ const router = new KoaRouter();
 router.get('api.authors.show', '/:id', async (ctx) => {
   const author = await ctx.orm.author.findByPk(ctx.params.id);
   if (!author) {
-    ctx.throw(404, "The book you are looking for doesen't exists");
+    ctx.throw(404, "The author you are looking for doesn't exist");
   }
   ctx.body = AuthorSerializer.serialize(author);
 });
