@@ -29,12 +29,14 @@ module.exports = (sequelize, DataTypes) => {
       authorId: DataTypes.INTEGER,
       description: {
         type: DataTypes.STRING,
+        allowNull: false,
         validate: {
           notEmpty: true,
         },
       },
       pages: {
         type: DataTypes.INTEGER,
+        allowNull: false,
         validate: {
           notEmpty: true,
         },
