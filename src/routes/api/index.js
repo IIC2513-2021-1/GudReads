@@ -1,12 +1,9 @@
+require('dotenv').config();
 const KoaRouter = require('koa-router');
 const jwt = require('koa-jwt');
-require('dotenv').config();
-
+const { apiSetCurrentUser } = require('../../middlewares/auth');
 const authors = require('./authors');
 const auth = require('./auth');
-
-/* middlewares */
-const { apiSetCurrentUser } = require('../../middlewares/auth');
 
 const router = new KoaRouter({ prefix: '/api' });
 
