@@ -11,7 +11,17 @@ async function setCurrentUser(ctx, next) {
   return next();
 }
 
+async function apiSetCurrentUser(ctx, next) {
+  if (ctx.state.authData) {
+    ctx.state.currentUser = await ctx.orm.user.findByPk(
+      ctx.state.authData.userId,
+    );
+  }
+  return next();
+}
+
 module.exports = {
   checkAuth,
   setCurrentUser,
+  apiSetCurrentUser,
 };
