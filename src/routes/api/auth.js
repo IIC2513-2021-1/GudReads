@@ -22,7 +22,12 @@ router.post('api.auth.login', '/', async (ctx) => {
   if (!authenticated) ctx.throw(401, 'Invalid password');
   try {
     const token = await generateToken(user);
-    ctx.body = { access_token: token };
+    // follow OAuth RFC6749 response standart
+    // https://datatracker.ietf.org/doc/html/rfc6749#section-5.1
+    ctx.body = {
+      access_token: token,
+      token_type: 'Bearer',
+    };
   } catch (error) {
     ctx.throw(500);
   }
