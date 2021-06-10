@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Author routes GET /api/authors/:id when passed id corresponds to an existing author body matches snapshot 1`] = `
+Object {
+  "data": Object {
+    "attributes": Object {
+      "birthDate": "1993-03-22",
+      "firstName": "John",
+      "lastName": "Doe",
+    },
+    "id": "1",
+    "type": "authors",
+  },
+}
+`;
