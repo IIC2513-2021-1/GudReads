@@ -4,7 +4,7 @@ const jwtgenerator = require('jsonwebtoken');
 
 const router = new KoaRouter();
 
-async function generateToken(user) {
+function generateToken(user) {
   return new Promise((resolve, reject) => {
     jwtgenerator.sign(
       { sub: user.id },
