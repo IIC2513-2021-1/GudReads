@@ -4,7 +4,7 @@ const app = require('../../app');
 
 const request = supertest(app.callback());
 
-describe('Author routes', () => {
+describe('Author API routes', () => {
   let auth;
   const userFields = {
     firstName: 'Test',
@@ -70,7 +70,7 @@ describe('Author routes', () => {
     });
 
     describe('when request is unauthorized because user is not logged in', () => {
-      test('unauthorized get request to endpoint', async () => {
+      test('responds with 401 status code', async () => {
         response = await unauthorizedGetAuthor(author.id);
         expect(response.status).toBe(401);
       });
@@ -112,7 +112,11 @@ describe('Author routes', () => {
         expect(response.body.data.id).toBeDefined();
       });
 
-      test('post request actually created the the given author', async () => {
+      test('response body matches snapshot', () => {
+        expect(response.body).toMatchSnapshot();
+      });
+
+      test('post request actually created the given author', async () => {
         const author = await app.context.orm.author.findByPk(response.body.data.id);
         const { firstName, lastName, birthDate } = author.dataValues;
         const sanitizedAuthor = { firstName, lastName, birthDate };
@@ -138,7 +142,7 @@ describe('Author routes', () => {
     });
 
     describe('author data is valid but request is unauthorized', () => {
-      test('responds with 201 (created) status code', async () => {
+      test('responds with 401 status code', async () => {
         const response = await unauthorizedPostAuthor(authorData);
         expect(response.status).toBe(401);
       });
