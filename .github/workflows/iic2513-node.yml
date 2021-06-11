@@ -4,21 +4,40 @@ on: pull_request
 
 jobs:
   lint:
+    name: Tests and linters
+    timeout-minutes: 10
     runs-on: ubuntu-latest
-
-    timeout-minutes: 12
-
-    strategy:
-      matrix:
-        node-version: [ 12.x ]
-
+    env:
+      DATABASE_URL: postgresql://localhost/postgres
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+    services:
+      db:
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        image: postgres:12.4
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v2
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Install dependencies
-      run: yarn install
-    - name: Run ESLint
-      run: yarn lint
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: yarn install
+      - name: Setup Database
+        run: |
+          yarn sequelize db:create
+          yarn sequelize db:migrate
+      - name: Run ESLint
+        run: yarn lint
+      - name: Run jest tests
+        run: yarn test
