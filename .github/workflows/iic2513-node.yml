@@ -3,7 +3,7 @@ name: IIC2513 Node CI
 on: pull_request
 
 jobs:
-  lint:
+  tests:
     runs-on: ubuntu-latest
 
     timeout-minutes: 12
