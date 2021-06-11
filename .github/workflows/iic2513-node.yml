@@ -12,7 +12,6 @@ jobs:
       DB_DIALECT: postgres
       DB_USERNAME: postgres
       DB_PASSWORD: password
-      DB_NAME: iic2513template_test
     services:
       db:
         env:
@@ -38,8 +37,8 @@ jobs:
         run: yarn install
       - name: Setup Database
         run: |
-          yarn sequelize db:create
-          yarn sequelize db:migrate
+          NODE_ENV=test yarn sequelize db:create
+          NODE_ENV=test yarn sequelize db:migrate
       - name: Run ESLint
         run: yarn lint
       - name: Run jest tests
