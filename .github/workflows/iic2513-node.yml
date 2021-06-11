@@ -9,11 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: postgresql://localhost/postgres
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      RAILS_ENV: test
-      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DB_DIALECT: postgres
+      DB_USERNAME: postgres
+      DB_PASSWORD: password
     services:
       db:
         env:
@@ -25,6 +23,11 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+    
+    strategy:
+      matrix:
+        node-version: [ 12.x ]
+        
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
