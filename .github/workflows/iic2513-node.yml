@@ -3,8 +3,6 @@ name: IIC2513 Node CI
 on: pull_request
 
 jobs:
-  // Best practice would be to separate lint and test actions
-  // Because of Actions minutes availability, will run together
   tests:
     name: Tests and linters
     timeout-minutes: 10
