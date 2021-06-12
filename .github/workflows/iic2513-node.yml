@@ -12,6 +12,8 @@ jobs:
       DB_DIALECT: postgres
       DB_USERNAME: postgres
       DB_PASSWORD: password
+      JWT_SECRET: some-secret
+      NODE_ENV: test
     services:
       db:
         env:
@@ -37,8 +39,8 @@ jobs:
         run: yarn install
       - name: Setup Database
         run: |
-          NODE_ENV=test yarn sequelize db:create
-          NODE_ENV=test yarn sequelize db:migrate
+          yarn sequelize db:create
+          yarn sequelize db:migrate
       - name: Run ESLint
         run: yarn lint
       - name: Run jest tests
