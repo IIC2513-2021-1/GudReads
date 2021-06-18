@@ -1,9 +1,10 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.addColumn('authors', 'imageUrl', {
-      type: Sequelize.TEXT,
+      type: Sequelize.STRING,
       allowNull: true,
-      default: 'https://res.cloudinary.com/diegoheg/image/upload/v1623946859/descarga_ezg46l.jpg',
+      // Cambiar defaultValue a voluntad, dejo imagen genérica
+      defaultValue: 'https://res.cloudinary.com/dee8jw8ue/image/upload/v1623992961/descarga_puc6lu.jpg',
     });
   },
 
