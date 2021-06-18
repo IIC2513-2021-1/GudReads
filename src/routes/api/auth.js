@@ -1,6 +1,9 @@
 require('dotenv').config();
 const KoaRouter = require('koa-router');
 const jwtgenerator = require('jsonwebtoken');
+const sendExampleEmail = require('../../mailers/example');
+
+const AUTH_MAILING_ACTIVE = false;
 
 const router = new KoaRouter();
 
@@ -20,6 +23,7 @@ router.post('api.auth.login', '/', async (ctx) => {
   if (!user) ctx.throw(404, `No user found with ${email}`);
   const authenticated = await user.checkPassword(password);
   if (!authenticated) ctx.throw(401, 'Invalid password');
+  if (AUTH_MAILING_ACTIVE) await sendExampleEmail(ctx, ctx.request.body, user);
   try {
     const token = await generateToken(user);
     // follow OAuth RFC6749 response standart
