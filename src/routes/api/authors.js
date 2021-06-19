@@ -32,6 +32,9 @@ router.patch('api.authors.update', '/:id', async (ctx) => {
   try {
     // Remover línea siguiente si se agrega un router.params
     const author = await ctx.orm.author.findByPk(ctx.params.id);
+    if (!author) {
+      ctx.throw(404, "The author you are looking for doesn't exist");
+    }
     const { image } = ctx.request.files;
     if (image.size > 0) {
       const imageUrl = await cloudinary.uploader.upload(image.path);
