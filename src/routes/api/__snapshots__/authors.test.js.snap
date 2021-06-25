@@ -6,6 +6,7 @@ Object {
     "attributes": Object {
       "birthDate": "1993-03-22",
       "firstName": "John",
+      "imageUrl": null,
       "lastName": "Doe",
     },
     "id": "1",
@@ -20,6 +21,7 @@ Object {
     "attributes": Object {
       "birthDate": "1993-03-22",
       "firstName": "John",
+      "imageUrl": null,
       "lastName": "Doe",
     },
     "id": "2",
