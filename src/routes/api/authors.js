@@ -8,6 +8,11 @@ const AuthorSerializer = new JSONAPISerializer('authors', {
 
 const router = new KoaRouter();
 
+router.get('api.authors.list', '/', async (ctx) => {
+  const authors = await ctx.orm.author.findAll();
+  ctx.body = AuthorSerializer.serialize(authors);
+});
+
 router.get('api.authors.show', '/:id', async (ctx) => {
   const author = await ctx.orm.author.findByPk(ctx.params.id);
   if (!author) {
