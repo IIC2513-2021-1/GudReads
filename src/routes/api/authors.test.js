@@ -35,10 +35,7 @@ describe('Author API routes', () => {
       lastName: 'Doe',
       birthDate: format(new Date(1993, 2, 22), 'yyyy-MM-dd'),
     };
-    const authorizedGetAuthor = (id) => request
-      .get(`/api/authors/${id}`)
-      .auth(auth.access_token, { type: 'bearer' });
-    const unauthorizedGetAuthor = (id) => request.get(`/api/authors/${id}`);
+    const getAuthor = (id) => request.get(`/api/authors/${id}`);
 
     beforeAll(async () => {
       author = await app.context.orm.author.create(authorData);
@@ -46,7 +43,7 @@ describe('Author API routes', () => {
 
     describe('when passed id corresponds to an existing author', () => {
       beforeAll(async () => {
-        response = await authorizedGetAuthor(author.id);
+        response = await getAuthor(author.id);
       });
 
       test('responds with 200 status code', () => {
@@ -64,15 +61,8 @@ describe('Author API routes', () => {
 
     describe('when passed id does not correspond to any author', () => {
       test('responds with 404 status code', async () => {
-        response = await authorizedGetAuthor(author.id * -1);
+        response = await getAuthor(author.id * -1);
         expect(response.status).toBe(404);
-      });
-    });
-
-    describe('when request is unauthorized because user is not logged in', () => {
-      test('responds with 401 status code', async () => {
-        response = await unauthorizedGetAuthor(author.id);
-        expect(response.status).toBe(401);
       });
     });
   });
