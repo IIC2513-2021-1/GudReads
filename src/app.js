@@ -39,9 +39,6 @@ app.context.orm = orm;
  * Middlewares
  */
 
-// Enable cors
-app.use(cors());
-
 // expose running mode in ctx.state
 app.use((ctx, next) => {
   ctx.state.env = ctx.app.env;

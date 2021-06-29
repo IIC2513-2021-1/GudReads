@@ -3,9 +3,9 @@ const KoaRouter = require('koa-router');
 const jwtgenerator = require('jsonwebtoken');
 const sendExampleEmail = require('../../mailers/example');
 
-const router = new KoaRouter();
-
 const AUTH_MAILING_ACTIVE = false;
+
+const router = new KoaRouter();
 
 function generateToken(user) {
   return new Promise((resolve, reject) => {
