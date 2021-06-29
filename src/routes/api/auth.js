@@ -12,6 +12,7 @@ function generateToken(user) {
     jwtgenerator.sign(
       { sub: user.id },
       process.env.JWT_SECRET,
+      { expiresIn: 60 * 30 },
       (err, tokenResult) => (err ? reject(err) : resolve(tokenResult)),
     );
   });
@@ -28,7 +29,9 @@ router.post('api.auth.login', '/', async (ctx) => {
     const token = await generateToken(user);
     // follow OAuth RFC6749 response standart
     // https://datatracker.ietf.org/doc/html/rfc6749#section-5.1
+    const toSendUser = { firstName: user.firstName, lastName: user.lastName, email };
     ctx.body = {
+      ...toSendUser,
       access_token: token,
       token_type: 'Bearer',
     };
