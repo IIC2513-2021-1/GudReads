@@ -6,6 +6,7 @@ const koaFlashMessage = require('koa-flash-message').default;
 const koaStatic = require('koa-static');
 const render = require('koa-ejs');
 const session = require('koa-session');
+const cors = require('@koa/cors');
 const override = require('koa-override-method');
 const cloudinary = require('cloudinary').v2;
 const assets = require('./assets');
@@ -33,6 +34,9 @@ app.context.orm = orm;
 /**
  * Middlewares
  */
+
+// Enable cors
+app.use(cors());
 
 // expose running mode in ctx.state
 app.use((ctx, next) => {
