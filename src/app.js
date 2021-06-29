@@ -1,3 +1,4 @@
+require('dotenv').config();
 const path = require('path');
 const Koa = require('koa');
 const koaBody = require('koa-body');
@@ -17,6 +18,9 @@ const api = require('./routes/api');
 
 // App constructor
 const app = new Koa();
+
+// CORS
+app.use(cors({ origin: process.env.ORIGIN || 'http://localhost:8000' }));
 
 const developmentMode = app.env === 'development';
 const testMode = app.env === 'test';
