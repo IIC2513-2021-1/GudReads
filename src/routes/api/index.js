@@ -9,6 +9,7 @@ const router = new KoaRouter({ prefix: '/api' });
 
 /* Unprotected routes */
 router.use('/auth', auth.routes());
+router.use('/users', users.routes());
 
 /* Protected routes */
 router.use(jwt({ secret: process.env.JWT_SECRET, key: 'authData' }).unless({ method: 'GET' }));
