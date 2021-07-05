@@ -4,6 +4,7 @@ const jwt = require('koa-jwt');
 const { apiSetCurrentUser } = require('../../middlewares/auth');
 const authors = require('./authors');
 const auth = require('./auth');
+const users = require('./users');
 
 const router = new KoaRouter({ prefix: '/api' });
 
