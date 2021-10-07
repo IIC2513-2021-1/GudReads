@@ -21,6 +21,15 @@ router.get('books.new', '/new', async (ctx) => {
   });
 });
 
+router.get('books.show', '/:id', async (ctx) => {
+  const { book } = ctx.state;
+  await ctx.render('books/show', {
+    book,
+    backToAuthorPath: ctx.router.url('authors.show', { id: book.authorId }),
+    notice: ctx.flashMessage.notice,
+  });
+});
+
 router.post('books.create', '/', async (ctx) => {
   const book = ctx.orm.book.build(ctx.request.body);
   try {
@@ -35,15 +44,6 @@ router.post('books.create', '/', async (ctx) => {
       submitBookPath: ctx.router.url('books.create'),
     });
   }
-});
-
-router.get('books.show', '/:id', async (ctx) => {
-  const { book } = ctx.state;
-  await ctx.render('books/show', {
-    book,
-    backToAuthorPath: ctx.router.url('authors.show', { id: book.authorId }),
-    notice: ctx.flashMessage.notice,
-  });
 });
 
 module.exports = router;
