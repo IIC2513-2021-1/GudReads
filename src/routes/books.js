@@ -11,6 +11,22 @@ router.param('id', async (id, ctx, next) => {
 
 router.use(checkAuth);
 
+router.post('books.create', '/', async (ctx) => {
+  const book = ctx.orm.book.build(ctx.request.body);
+  try {
+    await book.save({ field: ['title', 'publication', 'authorId', 'description', 'pages'] });
+    ctx.redirect(ctx.router.url('authors.show', { id: book.authorId }));
+  } catch (ValidationError) {
+    const authorList = await ctx.orm.author.findAll();
+    await ctx.render('books/new', {
+      book,
+      authorList,
+      errors: ValidationError.errors,
+      submitBookPath: ctx.router.url('books.create'),
+    });
+  }
+});
+
 router.get('books.new', '/new', async (ctx) => {
   const book = ctx.orm.book.build();
   const authorList = await ctx.orm.author.findAll();
@@ -28,22 +44,6 @@ router.get('books.show', '/:id', async (ctx) => {
     backToAuthorPath: ctx.router.url('authors.show', { id: book.authorId }),
     notice: ctx.flashMessage.notice,
   });
-});
-
-router.post('books.create', '/', async (ctx) => {
-  const book = ctx.orm.book.build(ctx.request.body);
-  try {
-    await book.save({ field: ['title', 'publication', 'authorId', 'description', 'pages'] });
-    ctx.redirect(ctx.router.url('authors.show', { id: book.authorId }));
-  } catch (ValidationError) {
-    const authorList = await ctx.orm.author.findAll();
-    await ctx.render('books/new', {
-      book,
-      authorList,
-      errors: ValidationError.errors,
-      submitBookPath: ctx.router.url('books.create'),
-    });
-  }
 });
 
 module.exports = router;
